@@ -1,0 +1,36 @@
+﻿@model TalentLink.Models.Job
+@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div>
+    @await Html.PartialAsync("_JobDetails", Model)
+</div>
+
+<a asp-action="JobEdit" asp-controller="Clients" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+
+<!-- Delete Button -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@Model.Id">
+    Delete
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal-@Model.Id" tabindex="-1" aria-labelledby="deleteModalLabel-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel-@Model.Id">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the job "<strong>@Model.JobTitle</strong>"?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="JobDelete" asp-controller="Clients" asp-route-id="@Model.Id" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

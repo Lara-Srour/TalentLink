@@ -1,0 +1,50 @@
+﻿@model TalentLink.Models.Job
+
+@{
+    ViewData["Title"] = "Create Job";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<h2>Create a New Job Post</h2>
+
+<form asp-action="JobCreate" asp-controller="Clients" method="post">
+    <div class="form-group">
+        <label asp-for="JobTitle" class="control-label"></label>
+        <input asp-for="JobTitle" class="form-control" />
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Location" class="control-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="JobType" class="control-label"></label>
+        <select asp-for="JobType" asp-items="Html.GetEnumSelectList<TalentLink.Models.JobType>()" class="form-control"></select>
+        <span asp-validation-for="JobType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Salary" class="control-label"></label>
+        <input asp-for="Salary" class="form-control" />
+        <span asp-validation-for="Salary" class="text-danger"></span>
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-primary">Post Job</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

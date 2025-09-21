@@ -1,0 +1,9 @@
+﻿@model TalentLink.Models.Job
+
+<h2>@Model.JobTitle</h2>
+<p>@Model.Description</p>
+<p><strong>Location:</strong> @Model.Location</p>
+<p><strong>Budget:</strong> $@Model.Salary</p>
+<p><strong>Date Posted:</strong> @Model.DatePosted.ToShortDateString()</p>
+<p><strong>Status:</strong> @Model.Status</p>
+<p><strong>Posted by:</strong> @Model.Client.ClientName</p>

@@ -1,0 +1,20 @@
+﻿@model TalentLink.Models.Job
+
+@{
+    Layout = "~/Views/Shared/_LayoutFreelancer.cshtml";
+}
+
+<div>
+    @await Html.PartialAsync("_JobDetails", Model)
+</div>
+
+@if (ViewBag.HasApplied != null && (bool)ViewBag.HasApplied)
+{
+    <button class="btn btn-secondary" disabled>You already applied</button>
+}
+else
+{
+    <a asp-action="JobApply" asp-controller="Freelancers" asp-route-jobId="@Model.Id" class="btn btn-primary">Apply</a>
+}
+
+

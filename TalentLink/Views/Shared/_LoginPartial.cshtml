@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                @if (SignInManager.IsSignedIn(User))
+            {
+                var currentUser = await UserManager.GetUserAsync(User);
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                        @if(await UserManager.IsInRoleAsync(currentUser, "Client"))
+                        {
+                            <li>
+                              <a class="dropdown-item" asp-controller="Clients" asp-action="ClientProfile">Profile</a>
+                            </li>
+                        }
+                        else if(await UserManager.IsInRoleAsync(currentUser, "Freelancer"))
+                        {
+                            <li>
+                                <a class="dropdown-item" asp-controller="Freelancers" asp-action="FreelancerProfile">Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Freelancers" asp-action="FreelancerApplications">My Applications</a>
+                            </li>
+                            
+                        }
+                        <li>
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post" asp-route-returnUrl="@Url.Action("Index","Home")">
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            }
+
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                </li>
+            }
+        </ul>
+        </div>
+    </div>
+
+

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TalentLink.Models.Job>
+@{
+    Layout = "~/Views/Shared/_LayoutFreelancer.cshtml";
+
+    // Preserve the filter values if provided
+    var selectedType = ViewBag.SelectedType as string ?? "";
+    var searchTerm = ViewBag.SearchTerm as string ?? "";
+}
+
+<h2>Find Your Job</h2>
+
+<form id="filterForm" class="row mb-4">
+    <div class="col-md-3">
+        <select name="type" id="typeFilter" class="form-control" asp-items="ViewBag.TypeList"></select>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="search" id="searchBox" class="form-control"
+               placeholder="Search by title or description" value="@searchTerm" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<div id="jobCardsContainer">
+    @await Html.PartialAsync("_JobCards", Model)
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#filterForm').submit(function (e) {
+                e.preventDefault(); // prevent full page reload
+
+                var type = $('#typeFilter').val();
+                var search = $('#searchBox').val();
+
+                $.ajax({
+                    url: '@Url.Action("FilterJobs", "Freelancers")',
+                    type: 'GET',
+                    data: { type: type, search: search },
+                    success: function (result) {
+                        $('#jobCardsContainer').html(result); // update cards only
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Status: " + status);
+                        console.log("Error: " + error);
+                        console.log("Response: " + xhr.responseText);
+                        alert('Error while filtering jobs. Check console for details.');
+                    }
+                });
+            });
+        });
+    </script>
+}

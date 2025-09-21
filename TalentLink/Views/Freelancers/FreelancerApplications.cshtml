@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TalentLink.Models.JobApplication>
+@{
+    Layout = "~/Views/Shared/_LayoutFreelancer.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Client</th>
+            <th>Location</th>
+            <th>Job Type</th>
+            <th>Salary</th>
+            <th>Application Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var app in Model)
+        {
+            <tr>
+                <td>@app.Job.JobTitle</td>
+                <td>@app.Job.Client?.ClientName</td>
+                <td>@app.Job.Location</td>
+                <td>@app.Job.JobType</td>
+                <td>@app.Job.Salary</td>
+                <td>@app.ApplicationDate.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="JobDetails" asp-controller="Freelancers" asp-route-id="@app.Job.Id" class="btn btn-sm btn-primary">View Job</a>
+                </td>
+             
+            </tr>
+        }
+    </tbody>
+</table>

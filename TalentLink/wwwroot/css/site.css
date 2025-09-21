@@ -1,0 +1,56 @@
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* prevents header cutting content */
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Sticky footer setup */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; /* pushes footer to bottom */
+}
+
+.footer {
+    background: #f8f9fa; /* Bootstrap light gray */
+    border-top: 1px solid #ddd;
+}
+
+.footer h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.footer a:hover {
+    color: #0d6efd; /* Bootstrap primary color */
+}
+
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+/* Remove arrow from user dropdown */
+#userMenu::after {
+    display: none !important;
+}
+
+#about {
+    scroll-margin-top: 80px; 
+}

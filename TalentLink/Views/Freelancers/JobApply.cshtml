@@ -1,0 +1,24 @@
+﻿@model TalentLink.Models.JobApplication
+
+@{
+    Layout = "~/Views/Shared/_LayoutFreelancer.cshtml";
+}
+<form asp-action="JobApply" asp-controller="Freelancers" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="JobId" />
+    <input type="hidden" asp-for="FreelancerId" />
+
+    <div>
+        <label asp-for="Message"></label>
+        <textarea asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label for="cvFile">Upload CV</label>
+        <input type="file" name="cvFile" class="form-control" class="text-danger" />
+        <span asp-validation-for="CVFilePath" class="text-danger"></span>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Apply</button>
+</form>

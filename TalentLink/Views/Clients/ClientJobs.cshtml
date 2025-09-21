@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TalentLink.Models.Job>
+@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+
+    // Preserve the filter values if provided
+    var selectedStatus = ViewBag.SelectedStatus as string ?? "All";
+    var searchTerm = ViewBag.SearchTerm as string ?? "";
+}
+
+<h2>My Posted Jobs</h2>
+
+<form id="filterForm" class="row mb-4">
+    <div class="col-md-3">
+        <select name="status" id="statusFilter" class="form-control" asp-items="ViewBag.StatusList"></select>
+    </div>
+    <div class="col-md-5">
+        <input type="text" name="search" id="searchBox" class="form-control" 
+               placeholder="Search by title or description" value="@searchTerm" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<div id="jobCardsContainer">
+    @await Html.PartialAsync("_JobCards", Model)
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#filterForm').submit(function (e) {
+                e.preventDefault(); // prevent full page reload
+
+                var status = $('#statusFilter').val();
+                var search = $('#searchBox').val();
+
+                $.ajax({
+                    url: '@Url.Action("FilterJobs", "Clients")',
+                    type: 'GET',
+                    data: { status: status, search: search },
+                    success: function (result) {
+                        $('#jobCardsContainer').html(result); // update cards only
+                    },
+                    error: function () {
+                        alert('Error while filtering jobs.');
+                    }
+                });
+            });
+        });
+    </script>
+}

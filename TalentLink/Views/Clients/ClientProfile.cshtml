@@ -1,0 +1,41 @@
+﻿@model TalentLink.Models.Client
+
+@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    ViewData["Title"] = "Client Profile";
+}
+
+<div class="container mt-4">
+    <h2>Client Profile</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <form asp-action="ClientProfile" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="ClientName" class="form-label"></label>
+            <input asp-for="ClientName" class="form-control" />
+            <span asp-validation-for="ClientName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Summary" class="form-label"></label>
+            <textarea asp-for="Summary" class="form-control"></textarea>
+            <span asp-validation-for="Summary" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Location" class="form-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,35 @@
+﻿@model TalentLink.Models.Freelancer
+
+@{
+    Layout = "~/Views/Shared/_LayoutFreelancer.cshtml";
+    ViewData["Title"] = "Freelancer Profile";
+}
+
+<div class="container mt-4">
+    <h2>Freelancer Profile</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <form asp-action="FreelancerProfile" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="FreelancerName" class="form-label"></label>
+            <input asp-for="FreelancerName" class="form-control" />
+            <span asp-validation-for="FreelancerName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="FreelancerProfession" class="form-label"></label>
+            <textarea asp-for="FreelancerProfession" class="form-control"></textarea>
+            <span asp-validation-for="FreelancerProfession" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

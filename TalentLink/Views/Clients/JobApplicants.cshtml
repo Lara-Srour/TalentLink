@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TalentLink.Models.JobApplication>
+@{
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Freelancer</th>
+            <th>Profession</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Application Date</th>
+            <th>Message</th>
+            <th>CV</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var app in Model)
+        {
+            <tr>
+                <td>@app.Freelancer.FreelancerName</td>
+                <td>@app.Freelancer.FreelancerProfession</td>
+                <td>@app.Freelancer.ApplicationUser.PhoneNumber</td>
+                <td>@app.Freelancer.ApplicationUser.Email</td>
+                <td>@app.ApplicationDate.ToString("dd/MM/yyyy")</td>
+                <td>@app.Message</td>
+                <td>
+                    <a href="@Url.Content(app.CVFilePath)" target="_blank">View CV</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
