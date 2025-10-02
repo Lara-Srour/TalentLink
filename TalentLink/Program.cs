@@ -66,6 +66,11 @@ if (!string.IsNullOrEmpty(port))
     app.Urls.Add($"http://*:{port}");
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate(); // Apply migrations automatically
+}
 
 app.Run();
 
