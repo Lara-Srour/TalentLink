@@ -125,7 +125,7 @@ namespace TalentLink.Controllers
 
                 // Assign client ID to the job
                 job.ClientId = client.Id;
-                job.DatePosted = DateTime.Now;
+                job.DatePosted = DateTime.UtcNow;
                 job.Status = JobStatus.Open;
 
                 _context.Jobs.Add(job);

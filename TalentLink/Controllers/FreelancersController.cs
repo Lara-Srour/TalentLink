@@ -236,6 +236,8 @@ namespace TalentLink.Controllers
             _context.JobApplications.Add(model);
             await _context.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Your application has been submitted successfully!";
+
             return RedirectToAction("JobSearch", "Freelancers", new { id = model.JobId });
         }
 

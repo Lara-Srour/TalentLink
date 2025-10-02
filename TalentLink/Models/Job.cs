@@ -23,13 +23,13 @@ namespace TalentLink.Models
             [ForeignKey("ClientId")]
 
             public Client? Client { get; set; }
-            [Column(TypeName = "nvarchar(50)")]
+            [Column(TypeName = "text")]
             public JobType JobType { get; set; }
 
             public decimal? Salary { get; set; }
 
-            public DateTime DatePosted { get; set; } = DateTime.Now;
-            [Column(TypeName = "nvarchar(50)")]
+            public DateTime DatePosted { get; set; } = DateTime.UtcNow;
+            [Column(TypeName = "text")]
             public JobStatus Status { get; set; } = JobStatus.Open;
         }
 
