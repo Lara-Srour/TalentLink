@@ -59,12 +59,12 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-// Only bind to Render's port if the environment variable is set
-var port = Environment.GetEnvironmentVariable("PORT");
-if (!string.IsNullOrEmpty(port))
+// Configure Kestrel to use PORT environment variable (for Render)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    app.Urls.Add($"http://*:{port}");
-}
+    serverOptions.Listen(System.Net.IPAddress.Any, int.Parse(port));
+});
 
 using (var scope = app.Services.CreateScope())
 {
