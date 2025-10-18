@@ -7,6 +7,19 @@ using TalentLink.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Determine environment (Development or Production)
+var env = builder.Environment.EnvironmentName;
+
+// Configure Kestrel to use the PORT environment variable on Render (Production)
+builder.WebHost.ConfigureKestrel(options =>
+{
+    if (env == "Production")
+    {
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+        options.Listen(System.Net.IPAddress.Any, int.Parse(port));
+    }
+});
+
 // Add services to the container.
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION")
     ?? builder.Configuration.GetConnectionString("DefaultConnection")
@@ -25,6 +38,7 @@ builder.Services.AddTransient<IEmailSender, NullEmailSender>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -59,12 +73,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-// Configure Kestrel to use PORT environment variable (for Render)
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.Listen(System.Net.IPAddress.Any, int.Parse(port));
-});
 
 using (var scope = app.Services.CreateScope())
 {
