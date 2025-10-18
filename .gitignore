@@ -361,3 +361,21 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# --- Security additions ---
+
+# Ignore local launch settings (contains passwords and env variables)
+**/Properties/launchSettings.json
+
+# Ignore any environment or secret files
+.env
+.env.*
+secrets.json
+
+# Ignore database files (for local dev)
+*.db
+*.sqlite
+
+# Ignore Docker and build cache
+*.dockerignore
+
