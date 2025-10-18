@@ -1,5 +1,8 @@
 # TalentLink
 
+## Live Demo
+You can view the deployed application here: [TalentLink](https://talentlink-bewj.onrender.com/)
+
 ## Overview
 TalentLink is a **freelance platform** built using **ASP.NET Core MVC** and **PostgreSQL**. The platform allows **two types of users**:
 
